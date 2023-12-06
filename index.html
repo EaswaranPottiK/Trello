@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="./common.css">
 </head>
-<body class="bg-[url('./Assets/background.jpg')] bg-cover">
+<body class="bg-[url('./Assets/background.jpg')] bg-cover" id="body">
     <h1 class="text-white text-3xl font-bold pl-[1%] mb-[1%]">Trello Board</h1>
 
     <div class="containerAll ml-[2%]">
@@ -27,8 +27,9 @@
                     </div>
                 </div>
             </div>
-            <div class="data bg-[#f8f8f8] p-[10px] rounded-[5px] flex flex-col gap-[10px] opacity-100">
-                <div class="taskToDo p-[10px] flex flex-col gap-[10px] rounded-md border shadow-xl cursor-pointer">
+            <div class="data bg-[#f8f8f8] p-[10px] rounded-[5px] flex flex-col gap-[10px] opacity-100" >
+                <!-- change id added-->
+                <div id="cardNo0" class="taskToDo p-[10px] flex flex-col gap-[10px] rounded-md border shadow-xl cursor-pointer">
 
                     <div class="flex justify-between">
                         <div class="tag bg-[#999966] text-[white] rounded-full px-[3%] py-[1%] mw-auto">

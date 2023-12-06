@@ -1,3 +1,5 @@
+let colorOfLabel = "#000";
+
 function deleteBoard(){
     console.log('delete board')
 }
@@ -52,9 +54,8 @@ function addCardPartTwo(event){
             <p onclick="deleteCard(event)">Delete Card</p>
         </div>
         
-
-        <div class="taskHeading font-bold">
-            ${inputText}
+        <div class="taskHeading font-bold" >
+        <div onclick="popUp(event)">${inputText}</div>
         </div>
 
         <div class="taskContent">
@@ -79,11 +80,11 @@ function addCardPartTwo(event){
     select.insertAdjacentHTML("afterbegin",htmlToBeAdded)
 
 }
-document.getElementById
+
 function popUp(event){
-    event.target.innerHTML += 
+    classPos = event.target.parentElement.parentElement.parentElement.getElementsByTagName("div")[0].id
+    document.getElementById('body').innerHTML += 
     `
-    <button id="open" onclick="addPopUp(event)"> </button>
     <div class="modal-container" >
         <div class="modal flex flex-col items-start font-bold">
             
@@ -91,7 +92,7 @@ function popUp(event){
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
                 <p>&nbsp;&nbsp;Title</p>
             </div>
-            <div><input type="text" placeholder="Add card title here" class="border-solid"></div>
+            <div><input id="titleInput" type="text" placeholder="Add card title here" class="border-solid"></div>
             <br>
 
             <div class="flex mb-[15px]">
@@ -120,19 +121,53 @@ function popUp(event){
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                 <p>&nbsp;&nbsp;Tasks</p>
             </div>
-            <div><input type="text" placeholder="Task pending"></div>
+            <div><input type="text" placeholder="No of task Done"></div>
             <div><input type="text" placeholder="Total no of task"></div>
             <br>
 
 
 
-            <button id="close" onclick="removePopUp(event)">Save & Close</button>
+            <button id="close" onclick="removePopUp(event, classPos)">Save & Close</button>
         </div>
     </div>
     `
 }
 
-function removePopUp(event){
-    console.log(event.target)
-    event.target.getElementsByClassName('modal-container')[0].remove()
+function removePopUp(event, classPos){
+
+    const pos = event.target.parentElement.parentElement;
+
+    let heading =pos.getElementsByTagName('input')[0].value;
+    let description =pos.getElementsByTagName('input')[1].value;
+    let date =pos.getElementsByTagName('input')[2].value;
+    let label =pos.getElementsByTagName('input')[3].value;
+    let taskDone =pos.getElementsByTagName('input')[4].value;
+    let totalTask =pos.getElementsByTagName('input')[5].value;
+
+    let cardNo = document.getElementById(classPos);
+
+    cardNo.getElementsByTagName('div')[1].style.backgroundColor = colorOfLabel;
+
+    
+    if (heading != ''){
+        cardNo.getElementsByTagName('div')[2].innerHTML =
+        `
+        <div onclick="popUp(event)">${heading}</div>
+        `
+    }
+
+    cardNo.getElementsByTagName('div')[5].innerHTML=
+    `
+        <div class="clockAndDate flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-footer-icon"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <p>&nbsp;${date}</p>
+        </div>
+        
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-footer-icon"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            &nbsp;<p>${taskDone}/${totalTask}</p>
+        </div>
+    `
+    
+    pos.remove()
 }
